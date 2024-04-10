@@ -29,6 +29,9 @@ LIGHT_GRAY = (192, 192, 192)
 global DARK_GRAY
 DARK_GRAY = (64, 64, 64)
 
+global STATE
+STATE = "start"
+
 
 global SCREEN_WIDTH
 SCREEN_WIDTH = 1200
