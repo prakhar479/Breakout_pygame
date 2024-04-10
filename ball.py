@@ -10,7 +10,7 @@ class Ball:
         self.position = list(initial_position)  # Convert tuple to list for mutable position
         self.velocity = [0, 0]  # Random initial velocity
 
-    def update(self, paddle):
+    def update(self, paddle, block_array):
         # Update ball position based on velocity
         self.position[0] += self.velocity[0]
         self.position[1] += self.velocity[1]
@@ -24,7 +24,9 @@ class Ball:
             self.velocity[1] = -self.velocity[1]
 
         if self.collides_with_paddle(paddle):
-            self.velocity[1] = -self.velocity[1] 
+            self.velocity[1] = -self.velocity[1]
+        
+        block_array.update(self)
         
 
 

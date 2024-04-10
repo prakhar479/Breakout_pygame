@@ -18,7 +18,7 @@ paddle = Paddle(screen, 150, 30, WHITE)
 PADDLE_SPEED = 5
 
 ball = Ball(screen, 15, BLUE, (1200//2,855))
-blocks = BlockArray(screen, 20)
+blocks = BlockArray(screen, 20, 6)
 blocks.initialize_block_pos()
 
 
@@ -46,10 +46,10 @@ while running:
     # Update sprite position
     paddle.update()
     PADDLE_SPEED*=1.0005
-    ball.update(paddle)
+    ball.update(paddle,blocks)
     # Fill the screen with black (or any other background color)
     if ball.position[1] > screen_height:
-        pygame.quit()
+        running = False
 
     screen.fill(BLACK)
 
