@@ -3,6 +3,14 @@ from paddle import Paddle
 from constants import *
 from ball import Ball
 from blocks import BlockArray
+
+
+"""
+PADDLE SIDE COLLISION LEFT 
+"""
+
+
+
 # Initialize Pygame
 pygame.init()
 
