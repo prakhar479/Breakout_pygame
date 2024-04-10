@@ -44,11 +44,21 @@ class BlockArray:
 
             block_x, block_y, _ = self.block_pos[i]
             if self.is_ball_colliding_with_block(ball, block_x, block_y):
-                # Remove the collided block
-                # print(n)
+                
+                ball_center = (ball.position[0], ball.position[1])
+
+                closest_x = max(block_x, min(ball_center[0], block_x + self.block_width))
+                closest_y = max(block_y, min(ball_center[1], block_y + self.block_height))
                 self.n-=1
                 del self.block_pos[i]
-                return -1
+
+                # Determine the side of the block where the collision occurred
+                if closest_x == block_x or closest_x == block_x + self.block_width:
+                    return 0,-1
+                elif closest_y == block_y or closest_y == block_y + self.block_height:
+                    return 1, -1
+                
+        return 0,1
 
     def is_ball_colliding_with_block(self, ball, block_x, block_y):
         # Calculate the center of the ball

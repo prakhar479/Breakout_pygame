@@ -26,7 +26,8 @@ class Ball:
         if self.collides_with_paddle(paddle):
             self.velocity[1] = -self.velocity[1]
         
-        block_array.update(self)
+        dir,orient = block_array.update(self)
+        self.velocity[dir]*=orient
         
 
 
