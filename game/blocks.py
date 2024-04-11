@@ -58,9 +58,9 @@ class BlockArray:
                 self.n-=1
                 del self.block_pos[i]
                 k = random.randint(0,1)
-                if(k == 0):
-                    pygame.mixer.music.load(MUSIC_FILES[1])
-                else: pygame.mixer.music.load(MUSIC_FILES[0])
+                
+                pygame.mixer.music.load(MUSIC_FILES[k])
+
                     # Play the current song
                 pygame.mixer.music.play()
                 # Determine the side of the block where the collision occurred
