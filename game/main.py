@@ -13,6 +13,7 @@ running = True
 clock = pygame.time.Clock()
 
 
+
 # Initialize Pygame
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -22,6 +23,10 @@ ball = Ball(screen, BALL_RADIUS, BLUE, (SCREEN_WIDTH//2,SCREEN_HEIGHT - PADDLE_H
 blocks = BlockArray(screen, BLOCK_COLUMNS, BLOCK_ROWS)
 blocks.initialize_block_pos()
 
+
+pygame.mixer.music.load(MUSIC_FILES[4])
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(-1)
 
 def playGame():
     global running

@@ -20,20 +20,20 @@ class Ball:
         # Reverse direction if ball hits the edge of the screen
         if self.position[0] < self.radius or self.position[0] > self.screen.get_width() - self.radius:
             self.velocity[0] = -self.velocity[0]
-            pygame.mixer.music.load(MUSIC_FILES[3])
-            pygame.mixer.music.play()
+            pygame.mixer.Sound(MUSIC_FILES[3]).play()
+            # pygame.mixer.music.play()
         if self.position[1] < self.radius:
             self.velocity[1] = -self.velocity[1]
-            pygame.mixer.music.load(MUSIC_FILES[3])
-            pygame.mixer.music.play()
+            pygame.mixer.Sound(MUSIC_FILES[3]).play()
+            # pygame.mixer.music.play()
 
 
         if self.collides_with_paddle(paddle):
             self.velocity[1] = -self.velocity[1]
             self.position[1] = 855
             self.velocity[0] += paddle.speed*COLLIDE_MULT
-            pygame.mixer.music.load(MUSIC_FILES[2])
-            pygame.mixer.music.play()
+            pygame.mixer.Sound(MUSIC_FILES[2]).play()
+            # pygame.mixer.music.play()
 
         
         dir,orient = block_array.update(self)

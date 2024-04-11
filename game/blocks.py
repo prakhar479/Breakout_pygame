@@ -59,10 +59,10 @@ class BlockArray:
                 del self.block_pos[i]
                 k = random.randint(0,1)
                 
-                pygame.mixer.music.load(MUSIC_FILES[k])
+                pygame.mixer.Sound(MUSIC_FILES[k]).play()
 
                     # Play the current song
-                pygame.mixer.music.play()
+                # pygame.mixer.music.play(1)
                 # Determine the side of the block where the collision occurred
                 if closest_x == block_x or closest_x == block_x + self.block_width:
                     return 0,-1
