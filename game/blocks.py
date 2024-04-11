@@ -17,14 +17,17 @@ class BlockArray:
         x = (self.screen.get_width() - self.num_blocks * (self.block_width + self.block_spacing)) // 2
         y = 50  # Top margin for the blocks
         self.block_pos = []
+        block_width = self.block_width + self.block_spacing
         for _ in range(self.lines):
             y += 40
             for i in range(self.num_blocks):
                 # Calculate position of each block
-                block_x = x + i * (self.block_width + self.block_spacing)
+
+                block_x = x + i * (block_width)
                 block_y = y
-                color = random.choice([RED, GREEN, BLUE, YELLOW, CYAN, MAGENTA, ORANGE, PINK, PURPLE,])
-                self.block_pos.append((block_x,block_y,color))
+                if(y - block_x**2 > 0):
+                    color = random.choice([RED, GREEN, BLUE, YELLOW, CYAN, MAGENTA, ORANGE, PINK, PURPLE,])
+                    self.block_pos.append((block_x,block_y,color))
 
 
     def draw_blocks(self):

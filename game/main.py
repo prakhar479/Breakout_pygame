@@ -26,23 +26,29 @@ blocks.initialize_block_pos()
 def playGame():
     global running
     global PADDLE_SPEED
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                paddle.speed = -PADDLE_SPEED  # Move left
+                paddle.speed = -PADDLE_SPEED  # Moves the paddle tp left
             elif event.key == pygame.K_RIGHT:
-                paddle.speed = PADDLE_SPEED  # Move right
+                paddle.speed = PADDLE_SPEED  # Move the paddle to right
+
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                  paddle.speed = 0 
 
     paddle.update()
+
+    # Increasing the PADDLE_SPEED by .05% every frame
     PADDLE_SPEED*=FRAME_MULT
 
     ball.update(paddle,blocks)
 
+    # Checks the death of ball into the infinite abyss
     if ball.position[1] > SCREEN_HEIGHT:
         # running = False
         global STATE
@@ -59,9 +65,6 @@ def playGame():
 
 
 def StartGame():
-    """
-    This function displays the start screen for the game.
-    """
     # Set background color
     screen.fill(BLACK)
 
@@ -75,15 +78,16 @@ def StartGame():
     pygame.display.flip()
 
     # Wait for user input (space key press)
-
     for event in pygame.event.get():
         global STATE
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
+
         if event.type == pygame.KEYDOWN:
               if event.key == pygame.K_SPACE:
-                # global STATE
+
+                # Sets STATE to play to go to playGame
                 STATE = "play"
                 ball.velocity[0]+=BALL_VELOCITY
                 ball.velocity[1]-=BALL_VELOCITY
