@@ -61,3 +61,6 @@ BLOCK_COLUMNS = 20
 
 global FRAME_MULT
 FRAME_MULT = 1.0005
+
+global MUSIC_FILES
+MUSIC_FILES = ["../SOUND/brick-hit-1.wav","../SOUND/brick-hit-2.wav","../SOUND/paddle_hit.wav", "../SOUND/wall_hit.wav"]

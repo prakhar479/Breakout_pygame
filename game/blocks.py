@@ -57,7 +57,12 @@ class BlockArray:
                 closest_y = max(block_y, min(ball_center[1], block_y + self.block_height))
                 self.n-=1
                 del self.block_pos[i]
-
+                k = random.randint(0,1)
+                if(k == 0):
+                    pygame.mixer.music.load(MUSIC_FILES[1])
+                else: pygame.mixer.music.load(MUSIC_FILES[0])
+                    # Play the current song
+                pygame.mixer.music.play()
                 # Determine the side of the block where the collision occurred
                 if closest_x == block_x or closest_x == block_x + self.block_width:
                     return 0,-1
