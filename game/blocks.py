@@ -21,7 +21,7 @@ class BlockArray:
 
     def initialize_block_pos(self):
         x = (self.screen.get_width() - self.num_blocks * (self.block_width + self.block_spacing)) // 2
-        y = 50  # Top margin for the blocks
+        y = 30  # Top margin for the blocks
         self.n = 0
         self.blocks = []
         block_width = self.block_width + self.block_spacing
