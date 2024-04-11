@@ -1,4 +1,5 @@
 import pygame
+from constants import *
 
 class Paddle:
     def __init__(self, screen, width, height, color):
@@ -8,7 +9,7 @@ class Paddle:
         self.color = color
 
         # Create the rectangular surface
-        self.rect = pygame.Rect(1100//2, 870, self.width, self.height)
+        self.rect = pygame.Rect(1100//2, SCREEN_HEIGHT - 30, self.width, self.height)
         self.rect.bottom = self.screen.get_height()  # Position at the bottom of the screen
 
         # Movement attributes

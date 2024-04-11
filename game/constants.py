@@ -73,3 +73,6 @@ global BLOCK_SPRITES
 BLOCK_SPRITES = ["../Sprites/Blue.png", "../Sprites/Green.png", "../Sprites/Red.png", "../Sprites/Yellow.png",
                  "../Sprites/Bright-Blue.png", "../Sprites/Purple.png", "../Sprites/Orange.png", "../Sprites/Brown.png",
                  "../Sprites/Light-Green.png", "../Sprites/Grey.png"]
+
+global SCORE
+SCORE = 0

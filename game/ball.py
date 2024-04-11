@@ -68,7 +68,7 @@ class Ball:
 
         if self.collides_with_paddle(paddle):
             self.velocity[1] = -self.velocity[1]
-            self.position[1] = 855
+            self.position[1] = SCREEN_HEIGHT - PADDLE_HEIGHT - BALL_RADIUS
             self.velocity[0] += paddle.speed*COLLIDE_MULT
             pygame.mixer.Sound(MUSIC_FILES[2]).play()
             # pygame.mixer.music.play()

@@ -14,7 +14,7 @@ class BlockArray:
         self.blocks = []
         self.n = 0
         self.SPRITES = [pygame.image.load(sprite) for sprite in BLOCK_SPRITES]
-        
+        self.total = 0
         # Scale the block sprites to the block size
         for i in range(len(self.SPRITES)):
             self.SPRITES[i] = pygame.transform.scale(self.SPRITES[i], (block_width, block_height))
@@ -23,6 +23,7 @@ class BlockArray:
         x = (self.screen.get_width() - self.num_blocks * (self.block_width + self.block_spacing)) // 2
         y = 50  # Top margin for the blocks
         self.n = 0
+        self.blocks = []
         block_width = self.block_width + self.block_spacing
         for _ in range(self.lines):
             y += 40
@@ -37,7 +38,7 @@ class BlockArray:
                 color = random.choice(self.SPRITES)
                 self.blocks.append((block_x,block_y,color))
                 self.n+=1
-
+        self.total = self.n
 
     def draw_blocks(self):
 

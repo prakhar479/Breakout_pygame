@@ -31,6 +31,7 @@ pygame.mixer.music.play(-1)
 def playGame():
     global running
     global PADDLE_SPEED
+    global SCORE
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -47,7 +48,7 @@ def playGame():
                  paddle.speed = 0 
 
     paddle.update()
-
+    SCORE = blocks.total - blocks.n
     # Increasing the PADDLE_SPEED by .05% every frame
     PADDLE_SPEED*=FRAME_MULT
 
@@ -57,7 +58,12 @@ def playGame():
     if ball.position[1] > SCREEN_HEIGHT:
         # running = False
         global STATE
+        print(STATE)
         STATE = "over"
+    
+    if blocks.n == 0:
+        # global STATE
+        STATE = "won"
 
     screen.fill(BLACK)
 
@@ -109,10 +115,13 @@ def gameOver():
 
     # Display a game over message
     font = pygame.font.Font(None, 36)  # Choose a font and size
-    text_surface = font.render("Game Over! Press R to Restart", True, WHITE)
+    text_surface = font.render(f"Game Over! Your score is {SCORE}.", True, WHITE)
     text_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
     screen.blit(text_surface, text_rect)
-
+    text_over = font.render("Press R to Restart", True, WHITE)
+    text_over_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50))
+    screen.blit(text_over, text_over_rect)
+ 
     # Update the display
     pygame.display.flip()
 
@@ -129,9 +138,42 @@ def gameOver():
         pygame.display.flip()
 
 
+def won():
+    """
+    This function displays the game over screen.
+    """
+    # Set background color
+    screen.fill(BLACK)
+
+    # Display a game over message
+    font = pygame.font.Font(None, 36)  # Choose a font and size
+    text_surface = font.render(f"YOU WON! Your score is {SCORE}.", True, WHITE)
+    text_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+    screen.blit(text_surface, text_rect)
+    text_over = font.render("Press R to Restart", True, WHITE)
+    text_over_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50))
+    screen.blit(text_over, text_over_rect)
+ 
+    # Update the display
+    pygame.display.flip()
+
+    # Wait for user input (R key press)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            quit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_r:
+                resetGame()
+# Exit the gameOver function
+    # Update the display during wait
+        pygame.display.flip()
+
+
+
 def resetGame():
     ball.position = [SCREEN_WIDTH//2,SCREEN_HEIGHT - PADDLE_HEIGHT - BALL_RADIUS]
-    paddle.rect = pygame.Rect(1100//2, 870, PADDLE_WIDTH, PADDLE_HEIGHT)
+    paddle.rect = pygame.Rect(1100//2, SCREEN_HEIGHT - 30, PADDLE_WIDTH, PADDLE_HEIGHT)
     # blocks.block_pos = []
     blocks.n = blocks.num_blocks * blocks.lines
     blocks.initialize_block_pos()
@@ -147,7 +189,7 @@ def resetGame():
     paddle.speed = 0
 
 # Mapping the states to their respective functions
-States = {"start": StartGame, "play": playGame, "over": gameOver}
+States = {"start": StartGame, "play": playGame, "over": gameOver, "won": won}
 
 while running:
     
