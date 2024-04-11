@@ -36,7 +36,7 @@ STATE = "start"
 global SCREEN_WIDTH
 SCREEN_WIDTH = 1200
 global SCREEN_HEIGHT
-SCREEN_HEIGHT = 900
+SCREEN_HEIGHT = 600
 
 
 global PADDLE_SPEED
@@ -63,4 +63,13 @@ global FRAME_MULT
 FRAME_MULT = 1.0005
 
 global MUSIC_FILES
-MUSIC_FILES = ["../SOUND/brick-hit-1.wav","../SOUND/brick-hit-2.wav","../SOUND/paddle_hit.wav", "../SOUND/wall_hit.wav", "../SOUND/breakout_bg_music.wav"]
+MUSIC_FILES = ["../SOUND/brick-hit-1.wav", "../SOUND/brick-hit-2.wav",
+               "../SOUND/paddle_hit.wav", "../SOUND/wall_hit.wav", "../SOUND/breakout_bg_music.wav"]
+
+global BALL_SPRITE
+BALL_SPRITE = "../Sprites/Ball.png"
+
+global BLOCK_SPRITES
+BLOCK_SPRITES = ["../Sprites/Blue.png", "../Sprites/Green.png", "../Sprites/Red.png", "../Sprites/Yellow.png",
+                 "../Sprites/Bright-Blue.png", "../Sprites/Purple.png", "../Sprites/Orange.png", "../Sprites/Brown.png",
+                 "../Sprites/Light-Green.png", "../Sprites/Grey.png"]

@@ -11,12 +11,17 @@ class BlockArray:
         self.block_height = block_height
         self.block_spacing = block_spacing
         self.lines = lines
+        self.blocks = []
         self.n = 0
+        self.SPRITES = [pygame.image.load(sprite) for sprite in BLOCK_SPRITES]
+        
+        # Scale the block sprites to the block size
+        for i in range(len(self.SPRITES)):
+            self.SPRITES[i] = pygame.transform.scale(self.SPRITES[i], (block_width, block_height))
 
     def initialize_block_pos(self):
         x = (self.screen.get_width() - self.num_blocks * (self.block_width + self.block_spacing)) // 2
         y = 50  # Top margin for the blocks
-        self.block_pos = []
         self.n = 0
         block_width = self.block_width + self.block_spacing
         for _ in range(self.lines):
@@ -28,8 +33,9 @@ class BlockArray:
                 block_y = y
                 k = random.randint(1,10)
                 # if(pattern(block_x,block_y)):
-                color = random.choice([RED, GREEN, BLUE, YELLOW, CYAN, MAGENTA, ORANGE, PINK, PURPLE,])
-                self.block_pos.append((block_x,block_y,color))
+                # color = random.choice([RED, GREEN, BLUE, YELLOW, CYAN, MAGENTA, ORANGE, PINK, PURPLE,])
+                color = random.choice(self.SPRITES)
+                self.blocks.append((block_x,block_y,color))
                 self.n+=1
 
 
@@ -37,18 +43,19 @@ class BlockArray:
 
         for i in range(self.n):
             # Calculate position of each block
-            block_x = self.block_pos[i][0]
-            block_y = self.block_pos[i][1]
-            color = self.block_pos[i][2]
+            block_x = self.blocks[i][0]
+            block_y = self.blocks[i][1]
+            color = self.blocks[i][2]
 
             # Draw block
-            pygame.draw.rect(self.screen, color, (block_x, block_y, self.block_width, self.block_height))
+            # pygame.draw.rect(self.screen, color, (block_x, block_y, self.block_width, self.block_height))
+            self.screen.blit(color, (block_x, block_y))
 
     def update(self, ball):
-        # n = len(self.block_pos)
+        # n = len(self.blocks)
         for i in range(self.n):
 
-            block_x, block_y, _ = self.block_pos[i]
+            block_x, block_y, _ = self.blocks[i]
             if self.is_ball_colliding_with_block(ball, block_x, block_y):
                 
                 ball_center = (ball.position[0], ball.position[1])
@@ -56,7 +63,7 @@ class BlockArray:
                 closest_x = max(block_x, min(ball_center[0], block_x + self.block_width))
                 closest_y = max(block_y, min(ball_center[1], block_y + self.block_height))
                 self.n-=1
-                del self.block_pos[i]
+                del self.blocks[i]
                 k = random.randint(0,1)
                 
                 pygame.mixer.Sound(MUSIC_FILES[k]).play()

@@ -146,18 +146,13 @@ def resetGame():
     PADDLE_SPEED = 5
     paddle.speed = 0
 
+# Mapping the states to their respective functions
+States = {"start": StartGame, "play": playGame, "over": gameOver}
 
 while running:
-    match STATE:
-        case "start":
-            StartGame()
-
-        case "play":
-            playGame()
-
-        case "over":
-            gameOver()
-
+    
+    # Call the appropriate function based on the current state
+    States[STATE]()
 
     # Cap the frame rate
     clock.tick(60)
