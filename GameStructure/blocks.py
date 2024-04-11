@@ -57,35 +57,17 @@ class BlockArray:
         """
         Initializes the positions of the blocks.
         """
-        x = (self.screen.get_width() - self.num_blocks * (self.block_width + self.block_spacing)) // 2
-        y = 30  # Top margin for the blocks
-        self.n = 0
-        self.blocks = []
-        block_width = self.block_width + self.block_spacing
-        for _ in range(self.lines):
-            y += 40
-            for i in range(self.num_blocks):
-                # Calculate position of each block
-                block_x = x + i * (block_width)
-                block_y = y
-                k = random.randint(1,10)
-                color = random.choice(self.SPRITES)
-                self.blocks.append((block_x,block_y,color))
-                self.n += 1
-        self.total = self.n
-
+        pass
+        # Top margin for the blocks
+        
+        # Calculate position of each block
+        
     def draw_blocks(self):
         """
         Draws the blocks on the screen.
         """
-        for i in range(self.n):
-            # Calculate position of each block
-            block_x = self.blocks[i][0]
-            block_y = self.blocks[i][1]
-            color = self.blocks[i][2]
-
-            # Draw block
-            self.screen.blit(color, (block_x, block_y))
+        pass
+        # Draw block
 
     def update(self, ball):
         """
@@ -97,25 +79,7 @@ class BlockArray:
         Returns:
         - A tuple representing the direction of the ball after collision with a block.
         """
-        for i in range(self.n):
-            block_x, block_y, _ = self.blocks[i]
-            if self.is_ball_colliding_with_block(ball, block_x, block_y):
-                ball_center = (ball.position[0], ball.position[1])
-                closest_x = max(block_x, min(ball_center[0], block_x + self.block_width))
-                closest_y = max(block_y, min(ball_center[1], block_y + self.block_height))
-                self.n -= 1
-                del self.blocks[i]
-                
-                pygame.mixer.Sound(random.choice(MUSIC_FILES[:2])).play()
-                
-                if closest_x in (block_x, block_x + self.block_width):
-                    return 0, -1
-                elif closest_y in (block_y, block_y + self.block_height):
-                    return 1, -1
-                else:
-                    return 1, -1
-                
-        return 0, 1
+        pass
 
     def is_ball_colliding_with_block(self, ball, block_x, block_y):
         """
@@ -129,9 +93,5 @@ class BlockArray:
         Returns:
         - True if the ball is colliding with the block, False otherwise.
         """
-        ball_center = (ball.position[0], ball.position[1])
-        closest_x = max(block_x, min(ball_center[0], block_x + self.block_width))
-        closest_y = max(block_y, min(ball_center[1], block_y + self.block_height))
-        distance = math.sqrt((ball_center[0] - closest_x) ** 2 + (ball_center[1] - closest_y) ** 2)
-        return distance <= ball.radius
+        pass
 
