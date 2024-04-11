@@ -64,7 +64,7 @@ FRAME_MULT = 1.0005
 
 global MUSIC_FILES
 MUSIC_FILES = ["../SOUND/brick-hit-1.wav", "../SOUND/brick-hit-2.wav",
-               "../SOUND/paddle_hit.wav", "../SOUND/wall_hit.wav", "../SOUND/breakout_bg_music.wav"]
+               "../SOUND/paddle_hit.wav", "../SOUND/wall_hit.wav", "../SOUND/BG.wav"]
 
 global BALL_SPRITE
 BALL_SPRITE = "../Sprites/Ball.png"
@@ -73,6 +73,15 @@ global BLOCK_SPRITES
 BLOCK_SPRITES = ["../Sprites/Blue.png", "../Sprites/Green.png", "../Sprites/Red.png", "../Sprites/Yellow.png",
                  "../Sprites/Bright-Blue.png", "../Sprites/Purple.png", "../Sprites/Orange.png", "../Sprites/Brown.png",
                  "../Sprites/Light-Green.png", "../Sprites/Grey.png"]
+
+global PADDLE_SPRITE
+PADDLE_SPRITE = "../Sprites/Paddle.png"
+
+global SPLASH_SPRITE
+SPLASH_SPRITE = "../Sprites/Splash.png"
+
+global BG_SPRITE
+BG_SPRITE = "../Sprites/BG2.jpg"
 
 global SCORE
 SCORE = 0

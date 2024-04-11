@@ -4,9 +4,6 @@ from constants import *
 from ball import Ball
 from blocks import BlockArray
 
-"""
-PADDLE SIDE COLLISION LEFT 
-"""
 
 global running
 running = True
@@ -23,54 +20,86 @@ ball = Ball(screen, BALL_RADIUS, BLUE, (SCREEN_WIDTH//2,SCREEN_HEIGHT - PADDLE_H
 blocks = BlockArray(screen, BLOCK_COLUMNS, BLOCK_ROWS)
 blocks.initialize_block_pos()
 
-
+# Load the background music
 pygame.mixer.music.load(MUSIC_FILES[4])
 pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)
 
 def playGame():
+    """
+    Function to play the game.
+
+    This function handles the game logic, including user input, updating game objects,
+    and checking for game over or victory conditions.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
+
     global running
     global PADDLE_SPEED
     global SCORE
 
+    # Handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                paddle.speed = -PADDLE_SPEED  # Moves the paddle tp left
+                paddle.speed = -PADDLE_SPEED  # Moves the paddle to the left
             elif event.key == pygame.K_RIGHT:
-                paddle.speed = PADDLE_SPEED  # Move the paddle to right
+                paddle.speed = PADDLE_SPEED  # Moves the paddle to the right
 
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                 paddle.speed = 0 
+                paddle.speed = 0
 
+    # Update paddle position
     paddle.update()
+
+    # Update score
     SCORE = blocks.total - blocks.n
-    # Increasing the PADDLE_SPEED by .05% every frame
-    PADDLE_SPEED*=FRAME_MULT
 
-    ball.update(paddle,blocks)
+    # Increase paddle speed every frame
+    PADDLE_SPEED *= FRAME_MULT
 
-    # Checks the death of ball into the infinite abyss
+    # Update ball position and check for collisions
+    ball.update(paddle, blocks)
+
+    # Check if the ball has fallen off the screen
     if ball.position[1] > SCREEN_HEIGHT:
-        # running = False
         global STATE
         print(STATE)
         STATE = "over"
-    
+
+    # Check if all blocks have been destroyed
     if blocks.n == 0:
-        # global STATE
         STATE = "won"
 
+    # Clear the screen
     screen.fill(BLACK)
+    
+    # Draw the background
+    bg = pygame.image.load(BG_SPRITE)
+    bg = pygame.transform.scale(bg, (SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen.blit(bg, (0, 0))
+    
+    # Display the score
+    font = pygame.font.Font(None, 36)  # Choose a font and size
+    text_surface = font.render(f"Score: {SCORE}", True, WHITE)
+    text_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, 50))
+    screen.blit(text_surface, text_rect)
 
-    # Draw the sprite
+
+    # Draw game objects
     paddle.draw()
     ball.draw()
     blocks.draw_blocks()
+
     # Update the display
     pygame.display.flip()
 
@@ -78,6 +107,11 @@ def playGame():
 def StartGame():
     # Set background color
     screen.fill(BLACK)
+    
+    # Draw the Splash Screen
+    splash = pygame.image.load(SPLASH_SPRITE)
+    splash = pygame.transform.scale(splash, (SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen.blit(splash, (0, 0))
 
     # Display a title or instructions
     font = pygame.font.Font(None, 36)  # Choose a font and size
@@ -113,6 +147,11 @@ def gameOver():
     # Set background color
     screen.fill(BLACK)
 
+    # Draw the Splash Screen
+    splash = pygame.image.load(SPLASH_SPRITE)
+    splash = pygame.transform.scale(splash, (SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen.blit(splash, (0, 0))
+    
     # Display a game over message
     font = pygame.font.Font(None, 36)  # Choose a font and size
     text_surface = font.render(f"Game Over! Your score is {SCORE}.", True, WHITE)
@@ -144,12 +183,19 @@ def won():
     """
     # Set background color
     screen.fill(BLACK)
+    
+    # Draw the Splash Screen
+    splash = pygame.image.load(SPLASH_SPRITE)
+    splash = pygame.transform.scale(splash, (SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen.blit(splash, (0, 0))
 
     # Display a game over message
     font = pygame.font.Font(None, 36)  # Choose a font and size
+   
     text_surface = font.render(f"YOU WON! Your score is {SCORE}.", True, WHITE)
     text_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
     screen.blit(text_surface, text_rect)
+    
     text_over = font.render("Press R to Restart", True, WHITE)
     text_over_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50))
     screen.blit(text_over, text_over_rect)
@@ -191,13 +237,11 @@ def resetGame():
 # Mapping the states to their respective functions
 States = {"start": StartGame, "play": playGame, "over": gameOver, "won": won}
 
-while running:
-    
-    # Call the appropriate function based on the current state
-    States[STATE]()
-
+while running:  
     # Cap the frame rate
     clock.tick(60)
+    # Call the appropriate function based on the current state
+    States[STATE]()
 
 # Quit Pygame
 pygame.quit()
