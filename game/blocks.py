@@ -11,12 +11,13 @@ class BlockArray:
         self.block_height = block_height
         self.block_spacing = block_spacing
         self.lines = lines
-        self.n = self.num_blocks * self.lines
+        self.n = 0
 
     def initialize_block_pos(self):
         x = (self.screen.get_width() - self.num_blocks * (self.block_width + self.block_spacing)) // 2
         y = 50  # Top margin for the blocks
         self.block_pos = []
+        self.n = 0
         block_width = self.block_width + self.block_spacing
         for _ in range(self.lines):
             y += 40
@@ -25,9 +26,11 @@ class BlockArray:
 
                 block_x = x + i * (block_width)
                 block_y = y
-                if(y - block_x**2 > 0):
-                    color = random.choice([RED, GREEN, BLUE, YELLOW, CYAN, MAGENTA, ORANGE, PINK, PURPLE,])
-                    self.block_pos.append((block_x,block_y,color))
+                k = random.randint(1,10)
+                # if(pattern(block_x,block_y)):
+                color = random.choice([RED, GREEN, BLUE, YELLOW, CYAN, MAGENTA, ORANGE, PINK, PURPLE,])
+                self.block_pos.append((block_x,block_y,color))
+                self.n+=1
 
 
     def draw_blocks(self):
@@ -60,6 +63,8 @@ class BlockArray:
                     return 0,-1
                 elif closest_y == block_y or closest_y == block_y + self.block_height:
                     return 1, -1
+                else: return 1, -1
+                break
                 
         return 0,1
 

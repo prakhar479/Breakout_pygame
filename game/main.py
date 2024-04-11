@@ -139,6 +139,7 @@ def resetGame():
 
     global PADDLE_SPEED
     PADDLE_SPEED = 5
+    paddle.speed = 0
 
 
 while running:
